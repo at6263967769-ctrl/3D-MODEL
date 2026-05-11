@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore with Arun - Interactive Space Exploration</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="rocket">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+            </svg>
+        </div>
+        <div class="loader-text">IIPS DAVV ENGINES...</div>
+        <div class="progress-bar"><div class="progress"></div></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="logo">EXPLORE<span>WITHARUN</span></div>
+        <div class="nav-links">
+            <a href="#" class="nav-btn active" data-target="home">SOLAR SYSTEM</a>
+            <a href="#" class="nav-btn" data-target="about">ABOUT</a>
+        </div>
+        <div class="nav-audio">
+            <button id="audio-toggle">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main id="app-container">
+        
+        <!-- 3D Canvas Background -->
+        <div id="canvas-container"></div>
+
+        <!-- UI Overlay for Planet Info -->
+        <div id="info-panel" class="hidden">
+            <div class="panel-content">
+                <button id="close-panel">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="planet-header">
+                    <h2 id="planet-name">Planet Name</h2>
+                    <span id="planet-type">Type</span>
+                </div>
+                
+                <p id="planet-description">Description goes here.</p>
+                
+                <div class="planet-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">DIAMETER</span>
+                        <span class="stat-value" id="planet-diameter">0 km</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">GRAVITY</span>
+                        <span class="stat-value" id="planet-gravity">0 m/s²</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">DISTANCE FROM SUN</span>
+                        <span class="stat-value" id="planet-distance">0 AU</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">MOONS</span>
+                        <span class="stat-value" id="planet-moons">0</span>
+                    </div>
+                </div>
+
+                <div class="planet-gallery">
+                    <img id="planet-image" src="" alt="Planet Visual">
+                </div>
+
+                <button class="explore-btn" id="explore-btn">ENTER ORBIT <span class="arrow">→</span></button>
+            </div>
+        </div>
+
+        <!-- About Page Template -->
+        <section id="about-page" class="page-overlay hidden">
+            <div class="container">
+                <h1 class="glitch-text" data-text="SPACE EXPLORATION">SPACE EXPLORATION</h1>
+                <div class="about-content">
+                    <p class="lead">Humanity's journey into the cosmos is just beginning.</p>
+                    <div class="grid-2">
+                        <div class="card glass-panel">
+                            <h3>Our Mission</h3>
+                            <p>To explore strange new worlds, to seek out new life and new civilizations, to boldly go where no one has gone before. The solar system is our backyard, and understanding it is key to our survival and evolution.</p>
+                        </div>
+                        <div class="card glass-panel">
+                            <h3>The Technology</h3>
+                            <p>This interactive experience represents the 8 major planets of our solar system using accurate relative speeds (though distances and sizes are scaled for visibility). Built with Three.js, WebGL, and High-Resolution NASA imagery.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tooltip for hover -->
+        <div id="tooltip" class="hidden">Planet</div>
+
+    </main>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+
+    <!-- Application Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/scene.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>
